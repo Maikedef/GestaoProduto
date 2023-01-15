@@ -18,7 +18,7 @@ namespace Validators.Test.Produtos
             var resultado = validator.Validate(produto);
 
             resultado.IsValid.Should().BeFalse();
-            resultado.Errors.Should().ContainSingle().And.Contain(x => x.ErrorMessage.Equals("A descrição do produto é obrigatória."));
+            resultado.Errors.Should().ContainSingle().And.Contain(x => x.ErrorMessage.Equals("A descrição do produto é obrigatório."));
         }
 
         [Fact]
