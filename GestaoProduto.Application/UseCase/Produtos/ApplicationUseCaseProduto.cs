@@ -34,7 +34,7 @@ namespace GestaoProduto.Application.UseCase.Produtos
             return "Produto excluido com êxito";
         }
 
-        public async Task<RetornarListaProdutosPaginadoDto> GetAllAsync(int pular, int limite, string descricaoProduto = "")
+        public async Task<RetornarListaProdutosPaginadoDto> GetAllAsync(int pagina, int limite, string descricaoProduto = "")
         {
             if(limite > 25)
             {
@@ -42,7 +42,7 @@ namespace GestaoProduto.Application.UseCase.Produtos
             }
 
             var totalRegistro = await _produtoRepository.GetCountAll(descricaoProduto);
-            var produtos = await _produtoRepository.GetAllAsync(pular, limite, descricaoProduto);
+            var produtos = await _produtoRepository.GetAllAsync(pagina, limite, descricaoProduto);
             var retornoProdutoDto = _mapper.Map<List<RetornarProdutoDto>>(produtos.ToList());
 
             return new RetornarListaProdutosPaginadoDto

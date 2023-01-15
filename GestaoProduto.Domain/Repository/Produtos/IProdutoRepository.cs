@@ -8,7 +8,7 @@ namespace GestaoProduto.Domain.Repository.Produtos
     {
         Task<Produto> GetByIDAsync(int id);
 
-        Task<IQueryable<Produto>> GetAllAsync(int pular, int limite, string descricaoProduto = "");
+        Task<IQueryable<Produto>> GetAllAsync(int pagina, int limite, string descricaoProduto = "");
 
         Task InsertAsync(Produto produto);
 

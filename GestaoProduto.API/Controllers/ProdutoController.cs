@@ -18,7 +18,7 @@ namespace GestaoProduto.API.Controllers
         }
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(RetornarProdutoDto),(int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetByIdAsync(int id)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
             var produtoDto = await _serviceProduto.GetByIDAsync(id);
             return Ok(produtoDto);
@@ -28,12 +28,12 @@ namespace GestaoProduto.API.Controllers
         [ProducesResponseType(typeof(RetornarProdutoDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAllAsync
             (
-                [FromQuery] int pular, 
+                [FromQuery] int pagina, 
                 [FromQuery] int limite, 
                 [FromQuery] string descricaoProduto = ""
             )
         {
-            var produtosDto = await _serviceProduto.GetAllAsync(pular, limite, descricaoProduto);
+            var produtosDto = await _serviceProduto.GetAllAsync(pagina, limite, descricaoProduto);
             return Ok(produtosDto);
         }
 
@@ -53,7 +53,7 @@ namespace GestaoProduto.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
