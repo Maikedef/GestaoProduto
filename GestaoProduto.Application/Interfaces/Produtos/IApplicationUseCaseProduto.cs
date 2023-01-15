@@ -7,7 +7,7 @@ namespace GestaoProduto.Application.Interfaces.Produtos
     {
         Task<string> DeleteAsync(int id);
 
-        Task<RetornarListaProdutosPaginadoDto> GetAllAsync(int pular, int limite);
+        Task<RetornarListaProdutosPaginadoDto> GetAllAsync(int pular, int limite, string descricaoProduto = "");
 
         Task<RetornarProdutoDto> GetByIDAsync(int id);
 

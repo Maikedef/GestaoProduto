@@ -8,13 +8,13 @@ namespace GestaoProduto.Domain.Repository.Produtos
     {
         Task<Produto> GetByIDAsync(int id);
 
-        Task<IQueryable<Produto>> GetAllAsync(int pular, int limite);
+        Task<IQueryable<Produto>> GetAllAsync(int pular, int limite, string descricaoProduto = "");
 
         Task InsertAsync(Produto produto);
 
         Task UpdateAsync(Produto produto);
 
         Task DeleteAsync(int id);
-        Task<int> GetCountAll();
+        Task<int> GetCountAll(string descricaoProduto = "");
     }
 }

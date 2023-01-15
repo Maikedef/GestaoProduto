@@ -23,7 +23,7 @@ namespace GestaoProduto.Application.UseCase.Produtos
 
         public async Task<string> DeleteAsync(int id)
         {
-            var produto = GetByIDAsync(id);
+            var produto = await GetByIDAsync(id);
 
             if(produto is null)
             {
@@ -34,15 +34,15 @@ namespace GestaoProduto.Application.UseCase.Produtos
             return "Produto excluido com êxito";
         }
 
-        public async Task<RetornarListaProdutosPaginadoDto> GetAllAsync(int pular, int limite)
+        public async Task<RetornarListaProdutosPaginadoDto> GetAllAsync(int pular, int limite, string descricaoProduto = "")
         {
             if(limite > 25)
             {
                 limite = 25;
             }
 
-            var totalRegistro = await _produtoRepository.GetCountAll();
-            var produtos = await _produtoRepository.GetAllAsync(pular, limite);
+            var totalRegistro = await _produtoRepository.GetCountAll(descricaoProduto);
+            var produtos = await _produtoRepository.GetAllAsync(pular, limite, descricaoProduto);
             var retornoProdutoDto = _mapper.Map<List<RetornarProdutoDto>>(produtos.ToList());
 
             return new RetornarListaProdutosPaginadoDto

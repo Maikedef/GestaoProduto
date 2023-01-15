@@ -21,9 +21,9 @@ namespace GestaoProduto.Infrastructure.Data.Repository.Produtos
             await _context.SaveChangesAsync();
         }
 
-        public Task<IQueryable<Produto>> GetAllAsync(int pular, int limite)
+        public Task<IQueryable<Produto>> GetAllAsync(int pular, int limite, string descricaoProduto = "")
         {
-            return Task.FromResult(_context.Produtos.AsNoTracking().Skip(pular).Take(limite));
+            return Task.FromResult(_context.Produtos.AsNoTracking().Where(x => x.DescricaoProduto.Contains(descricaoProduto)).Skip(pular).Take(limite));
         }
 
         public async Task<Produto> GetByIDAsync(int id)
@@ -31,9 +31,9 @@ namespace GestaoProduto.Infrastructure.Data.Repository.Produtos
             return await _context.Produtos.FindAsync(id);
         }
 
-        public async Task<int> GetCountAll()
+        public async Task<int> GetCountAll(string descricaoProduto = "")
         {
-            return await _context.Produtos.CountAsync();
+            return await _context.Produtos.AsNoTracking().Where(x => x.DescricaoProduto.Contains(descricaoProduto)).CountAsync();
         }
 
         public async Task InsertAsync(Produto produto)

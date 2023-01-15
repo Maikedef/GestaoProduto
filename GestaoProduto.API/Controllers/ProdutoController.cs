@@ -26,13 +26,19 @@ namespace GestaoProduto.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(RetornarProdutoDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllAsync([FromQuery] int pular, [FromQuery] int limite)
+        public async Task<IActionResult> GetAllAsync
+            (
+                [FromQuery] int pular, 
+                [FromQuery] int limite, 
+                [FromQuery] string descricaoProduto = ""
+            )
         {
-            var produtosDto = await _serviceProduto.GetAllAsync(pular, limite);
+            var produtosDto = await _serviceProduto.GetAllAsync(pular, limite, descricaoProduto);
             return Ok(produtosDto);
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> InsertAsync([FromBody] InserirProdutoDto produto)
         {
             string result = await _serviceProduto.InsertAsync(produto);
@@ -40,6 +46,7 @@ namespace GestaoProduto.API.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateAsync([FromBody] AtualizarProdutoDto produto)
         {
             string result = await _serviceProduto.UpdateAsync(produto);
@@ -47,6 +54,7 @@ namespace GestaoProduto.API.Controllers
         }
 
         [HttpDelete()]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             string result = await _serviceProduto.DeleteAsync(id);
